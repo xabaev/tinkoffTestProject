@@ -1,6 +1,6 @@
 package pages.topPanel;
 import org.openqa.selenium.By;
-import pages.bank.Payments.PaymentsPage;
+import pages.bank.payments.PaymentsPage;
 import pages.bank.credit.*;
 import pages.bank.creditCards.CreditCardsPage;
 import pages.bank.debitCards.DebitCardsPage;
@@ -9,7 +9,7 @@ import pages.bank.mortgage.MontgagePage;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class SecondMenu {
+public class SecondMenu extends FirstMenu{
     public CreditCardsPage tabCreditCards()
     {
         $(By.xpath("//span[contains(text(), 'Кредитные карты')][@data-qa-file = 'SecondMenu']")).click();

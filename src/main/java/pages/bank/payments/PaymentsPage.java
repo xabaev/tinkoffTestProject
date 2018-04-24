@@ -1,12 +1,13 @@
-package pages.bank.Payments;
+package pages.bank.payments;
 
 import org.openqa.selenium.By;
-import pages.bank.Payments.Categories.CategoriesPage;
-import pages.bank.Payments.Categories.Communal.CommunalPaymentPage;
+import pages.bank.payments.categories.CategoriesPage;
+import pages.bank.payments.categories.communal.CommunalPaymentPage;
+import pages.topPanel.SecondMenu;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class PaymentsPage {
+public class PaymentsPage extends SecondMenu {
     public SuggestBlock inputPayment(String name)
     {
         $(By.xpath("//div[@data-qa-file = 'StatelessInput']/input")).setValue(name);
