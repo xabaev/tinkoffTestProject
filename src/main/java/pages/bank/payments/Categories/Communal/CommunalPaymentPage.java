@@ -29,8 +29,8 @@ public class CommunalPaymentPage extends SecondMenu {
 
      public String getTextCustomElement (Integer number) //получим текст N-ного элемента из табоицы на странице
      {
-         String textElement = $(By.xpath("//ul[@data-qa-file = 'UIScrollList']/li[" + number + "]/span[2]/a/span")).text();
-         return null;
+         $(By.xpath("//ul[@data-qa-file = 'UIScrollList']/li[" + number + "]/span[2]/a/span")).should(Condition.visible);
+         return $(By.xpath("//ul[@data-qa-file = 'UIScrollList']/li[" + number + "]/span[2]/a/span")).text();
      }
 
 //TODO: какой то костыль, должно быть нормально параметризировано, кажется в class clickCustomElement

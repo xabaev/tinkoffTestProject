@@ -27,7 +27,7 @@ public class SingleTest {
                     .selectRegionFromTable("г. Москва");
         }
         String savePayment = ((CommunalPaymentPage) currentPage).getTextCustomElement(1);
-        assertEquals(((CommunalPaymentPage) currentPage).getTextCustomElement(1), "ЖКУ-Москва");
+        assertEquals(savePayment, "ЖКУ-Москва");
         ((CommunalPaymentPage) currentPage).clickZhkuMoskva()
                 .clickPayZhku();
     }
