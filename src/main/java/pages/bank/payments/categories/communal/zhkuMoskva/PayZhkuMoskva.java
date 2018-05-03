@@ -27,20 +27,20 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
         return this;
     }
 
-    public void getCodePayErrorText() {
-        $(By.xpath("//label[@for='payerCode']/../../div[@data-qa-file='UIFormRowError']")).getText();
+    public String getCodePayErrorText() {
+        return $(By.xpath("//label[@for='payerCode']/../../div[@data-qa-file='UIFormRowError']")).getText();
     }
 
-    public void getPeriodErrorText() {
-        $(By.xpath("//label[@for='period']/../../../div[@data-qa-file='UIFormRowError']")).getText();
+    public String getPeriodErrorText() {
+        return $(By.xpath("//label[@for='period']/../../../div[@data-qa-file='UIFormRowError']")).getText();
     }
 
-    public void getInsuranceErrorText() {
-        $(By.xpath("//span[contains(text(), 'Сумма добровольного страхования жилья')]/../../../div[@data-qa-file='UIFormRowError']")).getText();
+    public String getInsuranceErrorText() {
+        return $(By.xpath("//span[contains(text(), 'Сумма добровольного страхования жилья')]/../../../div[@data-qa-file='UIFormRowError']")).getText();
     }
 
-    public void getSumPayErrorText() {
-        $(By.xpath("//span[contains(text(), 'Сумма платежа')]/../../../div[@data-qa-file='UIFormRowError']")).getText();
+    public String getSumPayErrorText() {
+        return $(By.xpath("//span[contains(text(), 'Сумма платежа')]/../../../div[@data-qa-file='UIFormRowError']")).getText();
     }
 
     public PayZhkuMoskva clickPay()

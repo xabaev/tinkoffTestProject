@@ -29,5 +29,14 @@ public class SingleTest {
         Object currentPage = navigatePage.clickZhkuMoskva()//Продолжаем открывать странички
                 .clickPayZhku()
                 .clickPay();
+        assertEquals(((PayZhkuMoskva) currentPage).getCodePayErrorText(),"Поле обязательное");
+        assertEquals(((PayZhkuMoskva) currentPage).getPeriodErrorText(),"Поле обязательное");
+        assertEquals(((PayZhkuMoskva) currentPage).getSumPayErrorText(),"Поле обязательное");
+        ((PayZhkuMoskva) currentPage).setCodePay("0").setPeriod("0").setSumPay("0").setInsurance("10");
+        ((PayZhkuMoskva) currentPage).clickPay();
+        assertEquals(((PayZhkuMoskva) currentPage).getCodePayErrorText(),"Поле неправильно заполнено");
+        assertEquals(((PayZhkuMoskva) currentPage).getPeriodErrorText(),"Поле заполнено некорректно");
+        assertEquals(((PayZhkuMoskva) currentPage).getSumPayErrorText(),"Минимум — 10 \u20BD");
+        assertEquals(((PayZhkuMoskva) currentPage).getInsuranceErrorText(),"Сумма добровольного страхования не может быть больше итоговой суммы.");
     }
 }
