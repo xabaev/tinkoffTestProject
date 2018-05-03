@@ -29,6 +29,7 @@ public class SingleTest {
         String savePayment = ((CommunalPaymentPage) currentPage).getTextCustomElement(1); //Сохраним, что у нас первым в списке оплат
         assertEquals(savePayment, "ЖКУ-Москва");
         ((CommunalPaymentPage) currentPage).clickZhkuMoskva()//Продолжаем открывать странички
-                .clickPayZhku();
+                .clickPayZhku()
+                .clickPay();
     }
 }

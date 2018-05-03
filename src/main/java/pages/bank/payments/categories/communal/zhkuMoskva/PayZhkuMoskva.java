@@ -6,38 +6,47 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Selenide.$;
 
 public class PayZhkuMoskva extends ZhkuMoskvaPage {
-
-    public PayZhkuMoskva setCodePay(String codePay)
-    {
+    //TODO: сделать метод, динамически возвращающий элемент по тексту подсказки
+    public PayZhkuMoskva setCodePay(String codePay) {
         $(By.xpath("//input[@name = 'provider-payerCode']")).setValue(codePay);
         return this;
     }
 
-    public PayZhkuMoskva setPeriod(String codePay)
-    {
+    public PayZhkuMoskva setPeriod(String codePay) {
         $(By.xpath("//input[@name = 'provider-period']")).setValue(codePay);
         return this;
     }
 
-    public PayZhkuMoskva setInsurance(String codePay)
-    {
-        $(By.xpath("//span[contains(text(), 'Сумма добровольного страхования жилья')]/../div/input")).setValue(codePay); //TODO: стоит ли завязываться на текст подсказки?
+    public PayZhkuMoskva setInsurance(String codePay) {
+        $(By.xpath("//span[contains(text(), 'Сумма добровольного страхования жилья')]/../div/input")).setValue(codePay);
         return this;
     }
 
-    public PayZhkuMoskva setPay(String sumPay)
-    {
-        $(By.xpath("//span[contains(text(), 'Сумма платежа')]/../div/input")).setValue(sumPay);//TODO: стоит ли завязываться на текст подсказки?
+    public PayZhkuMoskva setSumPay(String sumPay) {
+        $(By.xpath("//span[contains(text(), 'Сумма платежа')]/../div/input")).setValue(sumPay);
         return this;
     }
 
-    public void codePayError()
-    {
-
+    public void getCodePayErrorText() {
+        $(By.xpath("//label[@for='payerCode']/../../div[@data-qa-file='UIFormRowError']")).getText();
     }
 
-    public void periodError()
-    {
-
+    public void getPeriodErrorText() {
+        $(By.xpath("//label[@for='period']/../../../div[@data-qa-file='UIFormRowError']")).getText();
     }
+
+    public void getInsuranceErrorText() {
+        $(By.xpath("//span[contains(text(), 'Сумма добровольного страхования жилья')]/../../../div[@data-qa-file='UIFormRowError']")).getText();
+    }
+
+    public void getSumPayErrorText() {
+        $(By.xpath("//span[contains(text(), 'Сумма платежа')]/../../../div[@data-qa-file='UIFormRowError']")).getText();
+    }
+
+    public PayZhkuMoskva clickPay()
+    {
+        $(By.xpath("//button[@data-qa-file='UIButton']")).click();
+        return this;
+    }
+
 }
