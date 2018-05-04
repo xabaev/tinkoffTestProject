@@ -6,6 +6,7 @@ import pages.bank.payments.categories.communal.zhkuMoskva.ZhkuMoskvaPage;
 import pages.topPanel.SecondMenu;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 
 public class CommunalPaymentPage extends SecondMenu {
     public String getRegionPaymentText(){
@@ -13,7 +14,8 @@ public class CommunalPaymentPage extends SecondMenu {
     }
 
     public RegionsPaymentPage clickRegionPayment(){
-        $(By.xpath("//span[@data-qa-file = 'Link']")).click();
+        sleep(300);
+        $(By.xpath("//span[@data-qa-file = 'Link']")).shouldBe(Condition.visible).click();
         return new RegionsPaymentPage();
     }
 

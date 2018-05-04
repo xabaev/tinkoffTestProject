@@ -1,6 +1,5 @@
 package pages.bank.payments.categories.communal.zhkuMoskva;
 
-import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -23,6 +22,7 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
     }
 
     public PayZhkuMoskva setSumPay(String sumPay) {
+        $(By.xpath("//div[@class = 'ui-form__fieldset ui-form__fieldset_inline ui-form__row_amount']")).click();
         $(By.xpath("//span[contains(text(), 'Сумма платежа')]/../div/input")).setValue(sumPay);
         return this;
     }
@@ -43,8 +43,7 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
         return $(By.xpath("//span[contains(text(), 'Сумма платежа')]/../../../div[@data-qa-file='UIFormRowError']")).getText();
     }
 
-    public PayZhkuMoskva clickPay()
-    {
+    public PayZhkuMoskva clickPay() {
         $(By.xpath("//button[@data-qa-file='UIButton']")).click();
         return this;
     }
