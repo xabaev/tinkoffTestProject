@@ -2,6 +2,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pages.bank.payments.categories.communal.CommunalPaymentPage;
 import pages.bank.payments.categories.communal.zhkuMoskva.PayZhkuMoskva;
+import pages.bank.payments.*;
 import pages.topPanel.SecondMenu;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -10,8 +11,8 @@ import static org.testng.Assert.assertEquals;
 public class SingleTest {
 
     @BeforeTest
-    public void openStartPage()
-    {
+    public void openStartPage() {
+
         open("https://www.tinkoff.ru");
     }
 
@@ -29,18 +30,18 @@ public class SingleTest {
         Object currentPage = navigatePage.clickZhkuMoskva()//Продолжаем открывать странички
                 .clickPayZhku()
                 .clickPay();
-        assertEquals(((PayZhkuMoskva) currentPage).getCodePayErrorText(),"Поле обязательное");
-        assertEquals(((PayZhkuMoskva) currentPage).getPeriodErrorText(),"Поле обязательное");
-        assertEquals(((PayZhkuMoskva) currentPage).getSumPayErrorText(),"Поле обязательное");
+        assertEquals(((PayZhkuMoskva) currentPage).getCodePayErrorText(), "Поле обязательное");
+        assertEquals(((PayZhkuMoskva) currentPage).getPeriodErrorText(), "Поле обязательное");
+        assertEquals(((PayZhkuMoskva) currentPage).getSumPayErrorText(), "Поле обязательное");
         ((PayZhkuMoskva) currentPage).setCodePay("0")
                 .setPeriod("0")
                 .setInsurance("10")
                 .setSumPay("0")
                 .clickPay();
-        assertEquals(((PayZhkuMoskva) currentPage).getCodePayErrorText(),"Поле неправильно заполнено");
-        assertEquals(((PayZhkuMoskva) currentPage).getPeriodErrorText(),"Поле заполнено некорректно");
-        assertEquals(((PayZhkuMoskva) currentPage).getSumPayErrorText(),"Минимум — 10 \u20BD");
-        assertEquals(((PayZhkuMoskva) currentPage).getInsuranceErrorText(),"Сумма добровольного страхования не может быть больше итоговой суммы.");
+        assertEquals(((PayZhkuMoskva) currentPage).getCodePayErrorText(), "Поле неправильно заполнено");
+        assertEquals(((PayZhkuMoskva) currentPage).getPeriodErrorText(), "Поле заполнено некорректно");
+        assertEquals(((PayZhkuMoskva) currentPage).getSumPayErrorText(), "Минимум — 10 \u20BD");
+        assertEquals(((PayZhkuMoskva) currentPage).getInsuranceErrorText(), "Сумма добровольного страхования не может быть больше итоговой суммы.");
         ((PayZhkuMoskva) currentPage).clickSearchDebt() //А вот тут ошибка на странице - нет Подменю с Платежами на странице "Оплатить ЖКУ в Москве"
                 .tabPayments()
                 .inputPayment(savePayment);
