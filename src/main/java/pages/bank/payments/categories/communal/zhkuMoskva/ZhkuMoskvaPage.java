@@ -8,19 +8,17 @@ import static com.codeborne.selenide.Selenide.$;
 
 //страница оплаты ЖКУ-Москва - отличается от class Provider
 public class ZhkuMoskvaPage extends SecondMenu {
-    public CommunalPaymentPage clickBack(){
+    public CommunalPaymentPage clickBack() {
         $(By.xpath("//span[@data-qa-node='WrapTag']/div[@data-qa-file = 'BackwardButton']")).click();
         return new CommunalPaymentPage();
     }
 
-    public PayZhkuMoskva clickPayZhku()
-    {
+    public PayZhkuMoskva clickPayZhku() {
         $(By.xpath("//span[@data-qa-file = 'Tab'][text()='Оплатить ЖКУ в Москве']")).click();
         return new PayZhkuMoskva();
     }
 
-    public SearchDebtMoskva clickSearchDebt()
-    {
+    public SearchDebtMoskva clickSearchDebt() {
         $(By.xpath("//span[@data-qa-file = 'Tab'][text()='Узнать задолженность за ЖКУ в Москве']")).click();
         return new SearchDebtMoskva();
     }

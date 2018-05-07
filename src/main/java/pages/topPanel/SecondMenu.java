@@ -1,4 +1,5 @@
 package pages.topPanel;
+
 import org.openqa.selenium.By;
 import pages.bank.payments.PaymentsPage;
 import pages.bank.credit.*;
@@ -9,39 +10,33 @@ import pages.bank.mortgage.MontgagePage;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class SecondMenu extends FirstMenu{
-    public CreditCardsPage tabCreditCards()
-    {
+public class SecondMenu extends FirstMenu {
+    public CreditCardsPage tabCreditCards() {
         $(By.xpath("//span[contains(text(), 'Кредитные карты')][@data-qa-file = 'SecondMenu']")).click();
         return new CreditCardsPage();
     }
 
-    public DebitCardsPage tabDebitCards()
-    {
+    public DebitCardsPage tabDebitCards() {
         $(By.xpath("//span[contains(text(), 'Дебетовые карты')][@data-qa-file = 'SecondMenu']")).click();
         return new DebitCardsPage();
     }
 
-    public CreditPage tabCredit()
-    {
+    public CreditPage tabCredit() {
         $(By.xpath("//span[contains(text(), 'Кредит')][@data-qa-file = 'SecondMenu']")).click();
         return new CreditPage();
     }
 
-    public DepositPage tabDeposit()
-    {
+    public DepositPage tabDeposit() {
         $(By.xpath("//span[contains(text(), 'Депозит')][@data-qa-file = 'SecondMenu']")).click();
         return new DepositPage();
     }
 
-    public MontgagePage tabMontgage()
-    {
+    public MontgagePage tabMontgage() {
         $(By.xpath("//span[contains(text(), 'Ипотека')][@data-qa-file = 'SecondMenu']")).click();
         return new MontgagePage();
     }
 
-    public PaymentsPage tabPayments()
-    {
+    public PaymentsPage tabPayments() {
         $(By.xpath("//span[contains(text(), 'Платежи')][@data-qa-file = 'SecondMenu']")).click();
         return new PaymentsPage();
     }

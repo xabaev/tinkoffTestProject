@@ -9,8 +9,5 @@
         <module name="tinkoffTestProject" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="tinkoffTestProject" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
 </project>

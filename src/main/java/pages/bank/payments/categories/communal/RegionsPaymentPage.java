@@ -6,8 +6,7 @@ import pages.topPanel.SecondMenu;
 import static com.codeborne.selenide.Selenide.$;
 
 public class RegionsPaymentPage extends SecondMenu {
-    public CommunalPaymentPage clickReturn()
-    {
+    public CommunalPaymentPage clickReturn() {
         $(By.xpath("//div[@data-qa-file = 'BackButton'][text()='Назад']")).click();
         return new CommunalPaymentPage();
     }
