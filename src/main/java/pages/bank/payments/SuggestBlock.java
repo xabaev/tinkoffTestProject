@@ -2,7 +2,7 @@ package pages.bank.payments;
 import org.openqa.selenium.By;
 import static com.codeborne.selenide.Selenide.$;
 
-public class SuggestBlock {
+public class SuggestBlock extends PaymentsPage{
     /**
      * @param divNum - номер div в подблоке результатов поиска. 1 - название компании, 2 - комментарий к платежу
      * @return - текст в переданном div
