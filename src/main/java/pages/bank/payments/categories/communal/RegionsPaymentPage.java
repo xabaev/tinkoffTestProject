@@ -12,7 +12,12 @@ public class RegionsPaymentPage extends SecondMenu {
     }
 
     //TODO: добавить ловлю исключения.
-    public CommunalPaymentPage selectRegionFromTable(String region) //Выберем регион из списка на странице
+
+    /**
+     * @param region - Выберем регион из списка регионов на странице
+     * @return - страницу коммунальных платежей. Для каждой категории платежей должен быть свой RegionsPaymentPage.
+     */
+    public CommunalPaymentPage selectRegionFromTable(String region)
     {
         $(By.xpath("//span[@data-qa-file = 'UILink'][text()='" + region + "']")).click();
         return new CommunalPaymentPage();

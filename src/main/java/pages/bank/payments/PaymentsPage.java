@@ -8,11 +8,18 @@ import pages.topPanel.SecondMenu;
 import static com.codeborne.selenide.Selenide.$;
 
 public class PaymentsPage extends SecondMenu {
+    /**
+     * @param name - имя платежной организации, которое необходимо ввести в поле поиска
+     * @return - блок результатов поиска
+     */
     public SuggestBlock inputPayment(String name) {
         $(By.xpath("//div[@data-qa-file = 'StatelessInput']/input")).setValue(name);
         return new SuggestBlock();
     }
 
+    /**
+     * @param mobile - телефон, который необходимо ввести в поле мобильного телефона
+     */
     public void inputMobile(String mobile) {
         $(By.xpath("//div[@data-qa-file = 'UIPhoneContact']//input")).setValue(mobile);
     }
