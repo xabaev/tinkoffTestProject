@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import pages.topPanel.SecondMenu;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 
 public class RegionsPaymentPage extends SecondMenu {
     public CommunalPaymentPage clickReturn() {
@@ -19,6 +20,7 @@ public class RegionsPaymentPage extends SecondMenu {
      */
     public CommunalPaymentPage selectRegionFromTable(String region)
     {
+        sleep(300);
         $(By.xpath("//span[@data-qa-file = 'UILink'][text()='" + region + "']")).click();
         return new CommunalPaymentPage();
     }

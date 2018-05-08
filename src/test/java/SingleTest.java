@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static com.codeborne.selenide.WebDriverRunner.url;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 
@@ -48,7 +49,7 @@ public class SingleTest {
         Selenide.actions().moveToElement($(By.xpath("//Body")), 0, 0).click().build().perform();
         //сделаем первый скрин для сравнения старниц
         Screenshot screenshot1 = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(50)).takeScreenshot(getWebDriver());
-        String previousWebAddress = title();
+        String previousWebAddress = url();
 
         currentPage = ((ZhkuMoskvaPage) currentPage).clickPayZhku()
                 .clickPay();
@@ -81,11 +82,12 @@ public class SingleTest {
         sleep(2000);
         //кликнем в угол страницы, что бы убрать фокус с поля
         Selenide.actions().moveToElement($(By.xpath("//Body")), 0, 0).click().build().perform();
-        String followingWebAddress = title();
+        String followingWebAddress = url();
         //скриним окно второй раз, для сравнения
         Screenshot screenshot2 = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(50)).takeScreenshot(getWebDriver());
         //дифф скриншотов
-        assertFalse(ScreenShots.makeDiff(screenshot1, screenshot2).hasDiff());
+        assertFalse(ScreenShots.makeDiff(screenshot1, screenshot2).hasDiff(), "Скриншоты страниц " + followingWebAddress + " не совпадают. Смотри файл "
+                + getWebDriver().manage().window().getSize() + "diff.png");
         assertEquals(previousWebAddress, followingWebAddress);
 
         ((SuggestBlock) currentPage).tabPayments()
