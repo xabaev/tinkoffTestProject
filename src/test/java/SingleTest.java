@@ -1,5 +1,7 @@
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import common.ScreenShots;
+import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.openqa.selenium.By;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -24,6 +26,8 @@ public class SingleTest {
 
     @BeforeTest
     public void openStartPage() {
+        ChromeDriverManager.getInstance().setup();
+        Configuration.browser = "chrome";
         open("https://www.tinkoff.ru");
         getWebDriver().manage().window().maximize();
     }
