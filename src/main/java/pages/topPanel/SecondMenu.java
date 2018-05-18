@@ -1,12 +1,12 @@
 package pages.topPanel;
 
 import org.openqa.selenium.By;
-import pages.bank.payments.PaymentsPage;
-import pages.bank.credit.*;
+import pages.bank.credit.CreditPage;
 import pages.bank.creditCards.CreditCardsPage;
 import pages.bank.debitCards.DebitCardsPage;
 import pages.bank.deposit.DepositPage;
 import pages.bank.mortgage.MontgagePage;
+import pages.bank.payments.PaymentsPage;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -40,4 +40,9 @@ public class SecondMenu extends FirstMenu {
         $(By.xpath("//span[contains(text(), 'Платежи')][@data-qa-file = 'SecondMenu']")).click();
         return new PaymentsPage();
     }
+
+    public void openSecondTab(String tabText) {
+        $(By.xpath("//span[contains(text(), "+ tabText +")][@data-qa-file = 'SecondMenu']")).click();
+    }
+
 }
