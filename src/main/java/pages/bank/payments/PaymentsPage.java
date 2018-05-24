@@ -37,4 +37,16 @@ public class PaymentsPage extends SecondMenu {
         $(By.xpath("//span[text()='ЖКХ']")).click();
         return new CommunalPaymentPage();
     }
+
+    public void clickPaymentCategory(String categoryName)
+    {
+        if ($(By.xpath("//div[@data-qa-file = 'PaymentsPageMenu']//span[text() = '" + categoryName + "']")).isDisplayed()) {
+            $(By.xpath("//div[@data-qa-file = 'PaymentsPageMenu']//span[text() = '" + categoryName + "']")).click();
+        }
+        else
+        {
+            $(By.xpath("//span[@data-qa-file = 'Button'][text() = 'Все категории']")).click();
+            $(By.xpath("//span[text() = '" + categoryName + "']")).click();
+        }
+    }
 }

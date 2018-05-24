@@ -62,4 +62,14 @@ public class CommunalPaymentPage extends SecondMenu {
         return new ZhkuMoskvaPage();
     }
 
+    /**
+     *
+     * @param paymentOrganization - имя платежной организации на странице
+     */
+    //TODO: работает только если организация есть на первом массиве элементов. Но можно спуститься ниже, и будет подгрузка следующих элементов.
+    public void clickPaymentOrganization(String paymentOrganization)
+    {
+        $(By.xpath("//ul//span[text()='" + paymentOrganization + "']")).click();
+    }
+
 }

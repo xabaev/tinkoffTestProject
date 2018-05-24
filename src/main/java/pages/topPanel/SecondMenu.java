@@ -41,8 +41,8 @@ public class SecondMenu extends FirstMenu {
         return new PaymentsPage();
     }
 
-    public void openSecondTab(String tabText) {
-        $(By.xpath("//span[contains(text(), "+ tabText +")][@data-qa-file = 'SecondMenu']")).click();
+    public void openSecondTabByText(String tabText) {
+        $(By.xpath("//span[text() = '"+ tabText +"'][@data-qa-file = 'SecondMenu']")).click();
     }
 
 }
