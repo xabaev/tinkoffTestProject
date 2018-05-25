@@ -88,4 +88,14 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
         return this;
     }
 
+    public PayZhkuMoskva setInputByHint()
+    {
+        return this;
+    }
+
+    public PayZhkuMoskva getInputErrorByHint()
+    {
+        return this;
+    }
+
 }

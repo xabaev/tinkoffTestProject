@@ -43,12 +43,15 @@ public class SingleTest {
         PayZhkuMoskva payZhkuMoskva = new PayZhkuMoskva();
         SearchDebtMoskva searchDebtMoskva = new SearchDebtMoskva();
         SuggestBlock suggestBlock = new SuggestBlock();
+
         secondMenu.openSecondTabByText("Платежи");
         paymentsPage.clickPaymentCategory("ЖКХ");
+
         if (!communalPaymentPage.getRegionPaymentText().equals("Москве")) { //если не в москве, то откроем такой.
             communalPaymentPage.clickRegionPayment()
                     .selectRegionFromTable("г. Москва");
         }
+
         String savePayment = communalPaymentPage.getTextCustomElement(1); //Сохраним, что у нас первым в списке оплат
         assertEquals(savePayment, "ЖКУ-Москва");
 
@@ -62,7 +65,8 @@ public class SingleTest {
         Screenshot screenshot1 = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(50)).takeScreenshot(getWebDriver());
         String previousWebAddress = url();
 
-        zhkuMoskvaPage.clickPayZhku().clickPay();
+        zhkuMoskvaPage.clickTabByText("Оплатить ЖКУ в Москве");
+        payZhkuMoskva.clickPay();
 
         assertEquals(payZhkuMoskva.getCodePayErrorText(), "Поле обязательное");
         assertEquals(payZhkuMoskva.getPeriodErrorText(), "Поле обязательное");
@@ -83,8 +87,8 @@ public class SingleTest {
         paymentsPage.inputPayment(savePayment);
 
         assertEquals(paymentsPage
-                .inputPayment(savePayment)
-                .getTextSuggestBlock(1),
+                        .inputPayment(savePayment)
+                        .getTextSuggestBlock(1),
                 "ЖКУ-Москва");
 
         suggestBlock.clickSuggestBlock("ЖКУ-Москва");
@@ -110,11 +114,9 @@ public class SingleTest {
     }
 
     @Test
-    public void testTest()
-    {
-        SecondMenu secondMenu = new SecondMenu();//после открытия страницы находимся на главной. Главная не описана, так что SecondTab
-        PaymentsPage paymentsPage = new PaymentsPage();
-        CommunalPaymentPage communalPaymentPage = new CommunalPaymentPage();
-        secondMenu.openSecondTabByText("Платеэи");
+    public void testTest() {
+        open("https://www.tinkoff.ru/zhku-moskva/oplata/");
+        $(By.linkText("Оплатить ЖКУ в Москве")).click();
+
     }
 }

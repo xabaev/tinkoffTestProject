@@ -22,4 +22,10 @@ public class ZhkuMoskvaPage extends SecondMenu {
         $(By.xpath("//span[@data-qa-file = 'Tab'][text()='Узнать задолженность за ЖКУ в Москве']")).click();
         return new SearchDebtMoskva();
     }
+
+    public ZhkuMoskvaPage clickTabByText(String tabText)
+    {
+        $(By.xpath("//li[@data-qa-file='TabContainer']//*[text()='" + tabText + "']")).click();
+        return this;
+    }
 }
