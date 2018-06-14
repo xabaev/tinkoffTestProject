@@ -101,7 +101,11 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
 
     public String getErrorByHint(String hint)
     {
-        return $(By.xpath(".//span[contains(text(), '" + hint + "')]//following::div[@data-qa-file='UIFormRowError'][1]")).getText();
+        String errorMessage = null;
+        SelenideElement containerErrorMessage = $(By.xpath(".//span[contains(text(), '" + hint + "')]//ancestor::div[@data-qa-file='FormFieldWrapper'][1]//div[@data-qa-file='UIFormRowError']"));
+        if (containerErrorMessage.isDisplayed())
+            errorMessage = containerErrorMessage.getText();
+        return errorMessage;
     }
 
 }
