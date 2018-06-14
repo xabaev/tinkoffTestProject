@@ -12,9 +12,7 @@ import pages.bank.payments.categories.communal.zhkuMoskva.PayZhkuMoskva;
 import pages.bank.payments.categories.communal.zhkuMoskva.ZhkuMoskvaPage;
 import pages.topPanel.SecondMenu;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -91,52 +89,32 @@ public class SingleTest {
                 "На странице г. Санкт-Петербург присутствует ЖКУ-Москва");
     }
 
-
-    /*    public static Object[] dataForTest() {
-            return new List[]{Arrays.asList(new Object[][]{
-                    {"123", "25.2018", "15002", "15001", "Поле неправильно заполнено", "Поле заполнено некорректно", "Сумма добровольного страхования не может быть больше итоговой суммы.", "Максимум — 15 000 \u20BD"},
-                    {"123", "25.2018", "15002", "9", "Поле неправильно заполнено", "Поле заполнено некорректно", "Сумма добровольного страхования не может быть больше итоговой суммы.", "Минимум — 10 \u20BD"},
-                    {"", "25.2018", "15002", "9", "Поле обязательное", "Поле заполнено некорректно", "Сумма добровольного страхования не может быть больше итоговой суммы.", "Минимум — 10 \u20BD"},
-                    {"123", "", "15002", "9", "Поле неправильно заполнено", "Поле обязательное", "Сумма добровольного страхования не может быть больше итоговой суммы.", "Минимум — 10 \u20BD"},
-                    {"123", "25.2018", "15002", "", "Поле неправильно заполнено", "Поле заполнено некорректно", "Поле обязательное", "Поле обязательное"},
-            })};
-        }
-    */
     @DataProvider(name = "Validation")
-    public static Object[][] credentials() {
-            return new Object[][]{
-                    {"123", "25.2018", "15002", "15001", "Поле неправильно заполнено", "Поле заполнено некорректно", "Сумма добровольного страхования не может быть больше итоговой суммы.", "Максимум — 15 000 \u20BD"},
-                    {"123", "25.2018", "15002", "9", "Поле неправильно заполнено", "Поле заполнено некорректно", "Сумма добровольного страхования не может быть больше итоговой суммы.", "Минимум — 10 \u20BD"},
-                    {"", "25.2018", "15002", "9", "Поле обязательное", "Поле заполнено некорректно", "Сумма добровольного страхования не может быть больше итоговой суммы.", "Минимум — 10 \u20BD"},
-                    {"123", "", "15002", "9", "Поле неправильно заполнено", "Поле обязательное", "Сумма добровольного страхования не может быть больше итоговой суммы.", "Минимум — 10 \u20BD"},
-                    {"123", "25.2018", "15002", "", "Поле неправильно заполнено", "Поле заполнено некорректно","","Поле обязательное"},
-            };
+    public static Object[][] Validation() {
+        return new Object[][]{
+                {Map.ofEntries(Map.entry("Код плательщика за ЖКУ в Москве", "555")),
+                        Map.ofEntries(Map.entry("Код плательщика за ЖКУ в Москве", "Поле неправильно заполнено"))},
+                {Map.ofEntries(Map.entry("За какой период оплачиваете коммунальные услуги", "00.0000")),
+                        Map.ofEntries(Map.entry("За какой период оплачиваете коммунальные услуги", "Поле заполнено некорректно"))},
+                {Map.ofEntries(Map.entry("Сумма платежа", "1")),
+                        Map.ofEntries(Map.entry("Сумма платежа", "Минимум — 10 \u20BD"))},
+                {Map.ofEntries(Map.entry("Сумма платежа", "15001")),
+                        Map.ofEntries(Map.entry("Сумма платежа", "Максимум — 15 000 \u20BD"))},
+                {Map.ofEntries(Map.entry("Сумма платежа", "15001"),
+                            Map.entry("Сумма добровольного страхования жилья из квитанции за ЖКУ в Москве", "15555")),
+                        Map.ofEntries(Map.entry("Сумма добровольного страхования жилья из квитанции за ЖКУ в Москве", "Сумма добровольного страхования не может быть больше итоговой суммы."))}};
     }
 
-        @Test(dataProvider = "Validation")
-        public void testValidation (String codePay, String period, String sumInsurance, String sumPay, String
-        messageCodePay, String messagePeriod, String messageSumInsurance, String messageSumPay)
-        {
-            PayZhkuMoskva payZhkuMoskva = new PayZhkuMoskva();
-            FindByLocators findElement = new FindByLocators();
-            open("https://www.tinkoff.ru/zhku-moskva/oplata/?tab=pay");
+    @Test(dataProvider = "Validation")
+    public void testValidation(Map<String, String> inputs, Map<String, String> errors) {
+        PayZhkuMoskva payZhkuMoskva = new PayZhkuMoskva();
+        open("https://www.tinkoff.ru/zhku-moskva/oplata/?tab=pay");
 
-            findElement.findButtonByText("Оплатить ЖКУ в Москве").click();
-
-            assertEquals(payZhkuMoskva.getCodePayErrorText(), "Поле обязательное");
-            assertEquals(payZhkuMoskva.getPeriodErrorText(), "Поле обязательное");
-            assertEquals(payZhkuMoskva.getSumPayErrorText(), "Поле обязательное");
-
-            payZhkuMoskva.setInputByHint("Код плательщика за ЖКУ в Москве", codePay)
-                    .setInputByHint("За какой период оплачиваете коммунальные услуги", period)
-                    .setInputByHint("Сумма добровольного страхования жилья из квитанции за ЖКУ в Москве", sumInsurance)
-                    .setInputByHint("Сумма платежа", sumPay)
-                    .clickPay();
-
-            assertEquals(payZhkuMoskva.getErrorByHint("Код плательщика за ЖКУ в Москве"), messageCodePay);
-            assertEquals(payZhkuMoskva.getErrorByHint("За какой период оплачиваете коммунальные услуги"), messagePeriod);
-            assertEquals(payZhkuMoskva.getErrorByHint("Сумма платежа"), messageSumPay);
-            assertEquals(payZhkuMoskva.getErrorByHint("Сумма добровольного страхования жилья из квитанции за ЖКУ в Москве"), messageSumInsurance);
-
+        for (Map.Entry<String, String> entry : inputs.entrySet()) {
+            payZhkuMoskva.setInputByHint(entry.getKey(), entry.getValue());
+        }
+        for (Map.Entry<String, String> entry : errors.entrySet()) {
+            assertEquals(entry.getValue(), payZhkuMoskva.getErrorByHint(entry.getKey()));
         }
     }
+}
