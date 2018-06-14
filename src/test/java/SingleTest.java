@@ -23,16 +23,6 @@ import static org.testng.Assert.assertFalse;
 
 public class SingleTest {
 
-    @DataProvider(name = "Validation")
-    public static Object[] dataForTest() {
-        return new List[]{Arrays.asList(new Object[][]{
-                {"123", "25.2018", "15002", "15001", "Поле неправильно заполнено", "Поле заполнено некорректно", "Сумма добровольного страхования не может быть больше итоговой суммы.", "Максимум — 15 000 \u20BD"},
-                {"123", "25.2018", "15002", "9", "Поле неправильно заполнено", "Поле заполнено некорректно", "Сумма добровольного страхования не может быть больше итоговой суммы.", "Минимум — 10 \u20BD"},
-                {"", "25.2018", "15002", "9", "Поле обязательное", "Поле заполнено некорректно", "Сумма добровольного страхования не может быть больше итоговой суммы.", "Минимум — 10 \u20BD"},
-                {"123", "", "15002", "9", "Поле неправильно заполнено", "Поле обязательное", "Сумма добровольного страхования не может быть больше итоговой суммы.", "Минимум — 10 \u20BD"},
-                {"123", "25.2018", "15002", "", "Поле неправильно заполнено", "Поле заполнено некорректно", "Поле обязательное", "Поле обязательное"},
-        })};
-    }
 
     @BeforeClass
     public void openStartPage() {
@@ -65,7 +55,7 @@ public class SingleTest {
         assertEquals(savePayment, "ЖКУ-Москва");
         communalPaymentPage.clickPaymentOrganization("ЖКУ-Москва");
         //Сохраним урл страницы, что бы потом сравнить
-        sleep(300);
+        sleep(1000);
         String previousWebAddress = url();
         //перейдем на страницу таба "Оплатить ЖКУ в москве", и кликтем по кнопке, что бы удостовериться, что мы точно на этой странице
         zhkuMoskvaPage.clickTabByText("Оплатить ЖКУ в Москве");
@@ -85,7 +75,7 @@ public class SingleTest {
         suggestBlock.clickSuggestBlock("ЖКУ-Москва");
 
         //Проверим, что находимся на той же странице, что и в начале теста
-        sleep(300);
+        sleep(1000);
         String followingWebAddress = url();
         assertEquals(previousWebAddress, followingWebAddress);
 
@@ -99,27 +89,49 @@ public class SingleTest {
                 "На странице г. Санкт-Петербург присутствует ЖКУ-Москва");
     }
 
-    @Test(dataProvider = "Validation")
-    public void testValidation(String codePay, String period, String sumInsurance, String sumPay, String messageCodePay, String messagePeriod,
-                               String messageSumInsurance, String messageSumPay)
-    {
-        PayZhkuMoskva payZhkuMoskva = new PayZhkuMoskva();
-        open("https://www.tinkoff.ru/zhku-moskva/oplata/?tab=pay");
 
-        assertEquals(payZhkuMoskva.getCodePayErrorText(), "Поле обязательное");
-        assertEquals(payZhkuMoskva.getPeriodErrorText(), "Поле обязательное");
-        assertEquals(payZhkuMoskva.getSumPayErrorText(), "Поле обязательное");
-
-        payZhkuMoskva.setCodePay(codePay)
-                .setPeriod(period)
-                .setInsurance(sumInsurance)
-                .setSumPay(sumPay)
-                .clickPay();
-
-        assertEquals(payZhkuMoskva.getCodePayErrorText(), messageCodePay);
-        assertEquals(payZhkuMoskva.getPeriodErrorText(), messagePeriod);
-        assertEquals(payZhkuMoskva.getSumPayErrorText(), messageSumInsurance);
-        assertEquals(payZhkuMoskva.getInsuranceErrorText(), "Сумма добровольного страхования не может быть больше итоговой суммы.");
-
+    /*    public static Object[] dataForTest() {
+            return new List[]{Arrays.asList(new Object[][]{
+                    {"123", "25.2018", "15002", "15001", "Поле неправильно заполнено", "Поле заполнено некорректно", "Сумма добровольного страхования не может быть больше итоговой суммы.", "Максимум — 15 000 \u20BD"},
+                    {"123", "25.2018", "15002", "9", "Поле неправильно заполнено", "Поле заполнено некорректно", "Сумма добровольного страхования не может быть больше итоговой суммы.", "Минимум — 10 \u20BD"},
+                    {"", "25.2018", "15002", "9", "Поле обязательное", "Поле заполнено некорректно", "Сумма добровольного страхования не может быть больше итоговой суммы.", "Минимум — 10 \u20BD"},
+                    {"123", "", "15002", "9", "Поле неправильно заполнено", "Поле обязательное", "Сумма добровольного страхования не может быть больше итоговой суммы.", "Минимум — 10 \u20BD"},
+                    {"123", "25.2018", "15002", "", "Поле неправильно заполнено", "Поле заполнено некорректно", "Поле обязательное", "Поле обязательное"},
+            })};
+        }
+    */
+    @DataProvider(name = "Validation")
+    public static Object[][] credentials() {
+        return new Object[][]
+                {
+                        {"123", "25.2018", "15002", "15001", "Поле неправильно заполнено", "Поле заполнено некорректно", "Сумма добровольного страхования не может быть больше итоговой суммы.", "Максимум — 15 000 \u20BD"},
+                        {"123", "25.2018", "15002", "9", "Поле неправильно заполнено", "Поле заполнено некорректно", "Сумма добровольного страхования не может быть больше итоговой суммы.", "Минимум — 10 \u20BD"}
+                };
     }
-}
+
+        @Test(dataProvider = "Validation")
+        public void testValidation (String codePay, String period, String sumInsurance, String sumPay, String
+        messageCodePay, String messagePeriod, String messageSumInsurance, String messageSumPay)
+        {
+            PayZhkuMoskva payZhkuMoskva = new PayZhkuMoskva();
+            FindByLocators findElement = new FindByLocators();
+            open("https://www.tinkoff.ru/zhku-moskva/oplata/?tab=pay");
+
+            findElement.findButtonByText("Оплатить ЖКУ в Москве").click();
+            assertEquals(payZhkuMoskva.getCodePayErrorText(), "Поле обязательное");
+            assertEquals(payZhkuMoskva.getPeriodErrorText(), "Поле обязательное");
+            assertEquals(payZhkuMoskva.getSumPayErrorText(), "Поле обязательное");
+
+            payZhkuMoskva.setCodePay(codePay)
+                    .setPeriod(period)
+                    .setInsurance(sumInsurance)
+                    .setSumPay(sumPay)
+                    .clickPay();
+
+            assertEquals(payZhkuMoskva.getCodePayErrorText(), messageCodePay);
+            assertEquals(payZhkuMoskva.getPeriodErrorText(), messagePeriod);
+            assertEquals(payZhkuMoskva.getSumPayErrorText(), messageSumPay);
+            assertEquals(payZhkuMoskva.getInsuranceErrorText(), messageSumInsurance);
+
+        }
+    }
