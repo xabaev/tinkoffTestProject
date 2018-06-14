@@ -6,11 +6,16 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Selenide.$;
 
 public class FindByLocators {
-    public static SelenideElement findByTypeAndText(String type, String text) {
+    public SelenideElement findByTypeAndText(String type, String text) {
         return ($(By.xpath("//" + type + "[text()='" + text + "']")));
     }
 
-    public static SelenideElement findByTypeAndID(String type, String id) {
+    public SelenideElement findByTypeAndID(String type, String id) {
         return ($(type + "#" + id));
+    }
+
+    public SelenideElement findButtonByText(String buttonText)
+    {
+        return ($(By.xpath("//*[text() = '" + buttonText + "']/ancestor-or-self::button[@data-qa-file='UIButton']")));
     }
 }

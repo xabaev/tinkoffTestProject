@@ -23,6 +23,7 @@ public class ZhkuMoskvaPage extends SecondMenu {
         return new SearchDebtMoskva();
     }
 
+    //TODO: кажется, клик по табу можно вынести в FindByLocators
     public ZhkuMoskvaPage clickTabByText(String tabText)
     {
         $(By.xpath("//li[@data-qa-file='TabContainer']//*[text()='" + tabText + "']")).click();

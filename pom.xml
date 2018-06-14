@@ -13,7 +13,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.21.0</version>
+                <version>LATEST</version>
                 <configuration>
                     <argLine>
                         <!--только на время разработки тестов - не сохраняем скрины ошибки-->
@@ -29,12 +29,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>LATEST</version>
                 <dependencies>
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
-                        <version>5.4</version>
+                        <version>LATEST</version>
                     </dependency>
                 </dependencies>
                 <configuration>
@@ -85,12 +85,12 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>6.14.3</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
-            <version>4.11.1</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -98,14 +98,9 @@
             <version>25.0-jre</version>
         </dependency>
         <dependency>
-            <groupId>ru.yandex.qatools.ashot</groupId>
-            <artifactId>ashot</artifactId>
-            <version>1.5.2</version>
-        </dependency>
-        <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>2.2.1</version>
+            <version>LATEST</version>
         </dependency>
     </dependencies>
 </project>

@@ -21,7 +21,7 @@ public class RegionsPaymentPage extends SecondMenu {
     public CommunalPaymentPage selectRegionFromTable(String region)
     {
         sleep(300);
-        $(By.xpath("//div[@data-qa-file = 'UIRegions']//*[text()='" + region + "'][@data-qa-file='Text']")).click();
+        $(By.xpath("//div[@data-qa-file = 'UIRegions']//*[text()='" + region + "'][@data-qa-file='UILink']")).click();
         return new CommunalPaymentPage();
     }
 }
