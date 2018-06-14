@@ -1,8 +1,12 @@
 package pages.bank.payments.categories.communal.zhkuMoskva;
 
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.pagefactory.ByAll;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.actions;
+import static org.openqa.selenium.By.xpath;
 
 public class PayZhkuMoskva extends ZhkuMoskvaPage {
     /**
@@ -11,7 +15,7 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
      */
     //TODO: сделать метод, динамически возвращающий элемент по тексту подсказки
     public PayZhkuMoskva setCodePay(String codePay) {
-        $(By.xpath("//input[@name = 'provider-payerCode']")).setValue(codePay);
+        $(xpath("//input[@name = 'provider-payerCode']")).setValue(codePay);
         return this;
     }
 
@@ -21,7 +25,7 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
      * @return - эту же страницу
      */
     public PayZhkuMoskva setPeriod(String period) {
-        $(By.xpath("//input[@name = 'provider-period']")).setValue(period);
+        $(xpath("//input[@name = 'provider-period']")).setValue(period);
         return this;
     }
 
@@ -31,7 +35,7 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
      * @return - эту же страницу
      */
     public PayZhkuMoskva setInsurance(String sumInsurance) {
-        $(By.xpath("//span[contains(text(), 'Сумма добровольного страхования жилья')]/../div/input")).setValue(sumInsurance);
+        $(xpath("//span[contains(text(), 'Сумма добровольного страхования жилья')]/../div/input")).setValue(sumInsurance);
         return this;
     }
 
@@ -41,8 +45,8 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
      * @return - эту же страницу
      */
     public PayZhkuMoskva setSumPay(String sumPay) {
-        $(By.xpath("//div[@class = 'ui-form__fieldset ui-form__fieldset_inline ui-form__row_amount']")).click();
-        $(By.xpath("//span[contains(text(), 'Сумма платежа')]/../div/input")).setValue(sumPay);
+        $(xpath("//div[@class = 'ui-form__fieldset ui-form__fieldset_inline ui-form__row_amount']")).click();
+        $(xpath("//span[contains(text(), 'Сумма платежа')]/../div/input")).setValue(sumPay);
         return this;
     }
 
@@ -51,7 +55,7 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
      * @return - текст ошибки
      */
     public String getCodePayErrorText() {
-        return $(By.xpath("//label[@for='payerCode']/../../div[@data-qa-file='UIFormRowError']")).getText();
+        return $(xpath("//label[@for='payerCode']/../../div[@data-qa-file='UIFormRowError']")).getText();
     }
 
     /**
@@ -59,7 +63,7 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
      * @return - текст ошибки
      */
     public String getPeriodErrorText() {
-        return $(By.xpath("//label[@for='period']/../../../div[@data-qa-file='UIFormRowError']")).getText();
+        return $(xpath("//label[@for='period']/../../../div[@data-qa-file='UIFormRowError']")).getText();
     }
 
     /**
@@ -67,7 +71,7 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
      * @return - текст ошибки
      */
     public String getInsuranceErrorText() {
-        return $(By.xpath("//span[contains(text(), 'Сумма добровольного страхования жилья')]/../../../div[@data-qa-file='UIFormRowError']")).getText();
+        return $(xpath("//span[contains(text(), 'Сумма добровольного страхования жилья')]/../../../div[@data-qa-file='UIFormRowError']")).getText();
     }
 
     /**
@@ -75,7 +79,7 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
      * @return - текст ошибки
      */
     public String getSumPayErrorText() {
-        return $(By.xpath("//span[contains(text(), 'Сумма платежа')]/../../../div[@data-qa-file='UIFormRowError']")).getText();
+        return $(xpath("//span[contains(text(), 'Сумма платежа')]/../../../div[@data-qa-file='UIFormRowError']")).getText();
     }
 
     /**
@@ -84,18 +88,20 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
      */
     //TODO: Нужно возвращать не эту же страницу, а следующую в рамках платежа. Для негативных проверок продуамть другой метод.
     public PayZhkuMoskva clickPay() {
-        $(By.xpath("//button[@data-qa-file='UIButton']")).click();
+        $(xpath("//button[@data-qa-file='UIButton']")).click();
         return this;
     }
 
-    public PayZhkuMoskva setInputByHint()
-    {
+    public PayZhkuMoskva setInputByHint(String hint, String value) {
+        SelenideElement input = $(new ByAll(xpath("//span[contains(text(),'" + hint + "')]/../../input"), xpath("//span[contains(text(),'" + hint + "')]//..//input")));
+        actions().click(input).perform();
+        input.setValue(value).pressEnter();
         return this;
     }
 
-    public PayZhkuMoskva getInputErrorByHint()
+    public String getErrorByHint(String hint)
     {
-        return this;
+        return $(By.xpath(".//span[contains(text(), '" + hint + "')]//following::div[@data-qa-file='UIFormRowError'][1]")).getText();
     }
 
 }

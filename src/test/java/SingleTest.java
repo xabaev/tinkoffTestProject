@@ -118,20 +118,21 @@ public class SingleTest {
             open("https://www.tinkoff.ru/zhku-moskva/oplata/?tab=pay");
 
             findElement.findButtonByText("Оплатить ЖКУ в Москве").click();
+
             assertEquals(payZhkuMoskva.getCodePayErrorText(), "Поле обязательное");
             assertEquals(payZhkuMoskva.getPeriodErrorText(), "Поле обязательное");
             assertEquals(payZhkuMoskva.getSumPayErrorText(), "Поле обязательное");
 
-            payZhkuMoskva.setCodePay(codePay)
-                    .setPeriod(period)
-                    .setInsurance(sumInsurance)
-                    .setSumPay(sumPay)
+            payZhkuMoskva.setInputByHint("Код плательщика за ЖКУ в Москве", codePay)
+                    .setInputByHint("За какой период оплачиваете коммунальные услуги", period)
+                    .setInputByHint("Сумма добровольного страхования жилья из квитанции за ЖКУ в Москве", sumInsurance)
+                    .setInputByHint("Сумма платежа", sumPay)
                     .clickPay();
 
-            assertEquals(payZhkuMoskva.getCodePayErrorText(), messageCodePay);
-            assertEquals(payZhkuMoskva.getPeriodErrorText(), messagePeriod);
-            assertEquals(payZhkuMoskva.getSumPayErrorText(), messageSumPay);
-            assertEquals(payZhkuMoskva.getInsuranceErrorText(), messageSumInsurance);
+            assertEquals(payZhkuMoskva.getErrorByHint("Код плательщика за ЖКУ в Москве"), messageCodePay);
+            assertEquals(payZhkuMoskva.getErrorByHint("За какой период оплачиваете коммунальные услуги"), messagePeriod);
+            assertEquals(payZhkuMoskva.getErrorByHint("Сумма платежа"), messageSumPay);
+            assertEquals(payZhkuMoskva.getErrorByHint("Сумма добровольного страхования жилья из квитанции за ЖКУ в Москве"), messageSumInsurance);
 
         }
     }
