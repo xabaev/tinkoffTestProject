@@ -12,7 +12,6 @@ import pages.bank.payments.categories.communal.zhkuMoskva.PayZhkuMoskva;
 import pages.bank.payments.categories.communal.zhkuMoskva.ZhkuMoskvaPage;
 import pages.topPanel.SecondMenu;
 
-import java.util.Arrays;
 import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.*;
