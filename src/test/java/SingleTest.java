@@ -103,7 +103,6 @@ public class SingleTest {
                             Map.entry("Сумма добровольного страхования жилья из квитанции за ЖКУ в Москве", "15555")),
                         Map.ofEntries(Map.entry("Сумма добровольного страхования жилья из квитанции за ЖКУ в Москве", "Сумма добровольного страхования не может быть больше итоговой суммы."))}};
     }
-
     @Test(dataProvider = "Validation")
     public void testValidation(Map<String, String> inputs, Map<String, String> errors) {
         PayZhkuMoskva payZhkuMoskva = new PayZhkuMoskva();
