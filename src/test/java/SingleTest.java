@@ -89,7 +89,7 @@ public class SingleTest {
     }
 
     @DataProvider(name = "Validation")
-    public static Object[][] Validation() {
+    public static Object[][] validation() {
         return new Object[][]{
                 {Map.ofEntries(Map.entry("Код плательщика за ЖКУ в Москве", "555")),
                         Map.ofEntries(Map.entry("Код плательщика за ЖКУ в Москве", "Поле неправильно заполнено"))},
@@ -97,22 +97,24 @@ public class SingleTest {
                         Map.ofEntries(Map.entry("За какой период оплачиваете коммунальные услуги", "Поле заполнено некорректно"))},
                 {Map.ofEntries(Map.entry("Сумма платежа", "1")),
                         Map.ofEntries(Map.entry("Сумма платежа", "Минимум — 10 \u20BD"))},
-                {Map.ofEntries(Map.entry("Сумма платежа", "15001")),
+                {Map.ofEntries(Map.entry("Сумма платежа", "151001")),
                         Map.ofEntries(Map.entry("Сумма платежа", "Максимум — 15 000 \u20BD"))},
                 {Map.ofEntries(Map.entry("Сумма платежа", "15001"),
                             Map.entry("Сумма добровольного страхования жилья из квитанции за ЖКУ в Москве", "15555")),
-                        Map.ofEntries(Map.entry("Сумма добровольного страхования жилья из квитанции за ЖКУ в Москве", "Сумма добровольного страхования не может быть больше итоговой суммы."))}};
+                        Map.ofEntries(Map.entry("Сумма добровольного страхования жилья из квитанции за ЖКУ в Москве", "Сумма добровольного страхования не может быть больше итоговой суммы."))},
+                {Map.ofEntries(Map.entry("Код плательщика за ЖКУ в Москве", "")),
+                        Map.ofEntries(Map.entry("Код плательщика за ЖКУ в Москве", "Поле обязательное"))},
+                {Map.ofEntries(Map.entry("За какой период оплачиваете коммунальные услуги", "")),
+                        Map.ofEntries(Map.entry("За какой период оплачиваете коммунальные услуги", "Поле обязательное"))},
+                {Map.ofEntries(Map.entry("Сумма платежа", "")),
+                        Map.ofEntries(Map.entry("Сумма платежа", "Поле обязательное"))},};
     }
     @Test(dataProvider = "Validation")
     public void testValidation(Map<String, String> inputs, Map<String, String> errors) {
         PayZhkuMoskva payZhkuMoskva = new PayZhkuMoskva();
         open("https://www.tinkoff.ru/zhku-moskva/oplata/?tab=pay");
 
-        for (Map.Entry<String, String> entry : inputs.entrySet()) {
-            payZhkuMoskva.setInputByHint(entry.getKey(), entry.getValue());
-        }
-        for (Map.Entry<String, String> entry : errors.entrySet()) {
-            assertEquals(entry.getValue(), payZhkuMoskva.getErrorByHint(entry.getKey()));
-        }
+        inputs.forEach(payZhkuMoskva::setInputByHint);
+        errors.forEach(payZhkuMoskva::setInputByHint);
     }
 }
