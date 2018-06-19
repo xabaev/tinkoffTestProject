@@ -7,6 +7,7 @@ import org.openqa.selenium.support.pagefactory.ByAll;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.actions;
 import static org.openqa.selenium.By.xpath;
+import static org.testng.Assert.assertEquals;
 
 public class PayZhkuMoskva extends ZhkuMoskvaPage {
     /**
@@ -95,7 +96,8 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
     public PayZhkuMoskva setInputByHint(String hint, String value) {
         SelenideElement input = $(new ByAll(xpath("//span[contains(text(),'" + hint + "')]/../../input"), xpath("//span[contains(text(),'" + hint + "')]//..//input")));
         actions().click(input).perform();
-        input.setValue(value).pressEnter();
+        input.setValue(value);
+        clickPay();
         return this;
     }
 
@@ -108,4 +110,7 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
         return errorMessage;
     }
 
+    public void assertTextErrorByHint(String hint, String textError) {
+        assertEquals(textError, getErrorByHint(hint));
+    }
 }

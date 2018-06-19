@@ -115,6 +115,6 @@ public class SingleTest {
         open("https://www.tinkoff.ru/zhku-moskva/oplata/?tab=pay");
 
         inputs.forEach(payZhkuMoskva::setInputByHint);
-        errors.forEach((key, value) -> assertEquals(value, payZhkuMoskva.getErrorByHint(key)));
+        errors.forEach(payZhkuMoskva::assertTextErrorByHint);
     }
 }
