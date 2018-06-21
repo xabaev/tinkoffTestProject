@@ -10,6 +10,12 @@ import pages.bank.payments.PaymentsPage;
 
 import static com.codeborne.selenide.Selenide.$;
 
+/**
+ * Структура страницы подменю.
+ *
+ * @author n.khabaev
+ * @version 1.0
+ */
 public class SecondMenu extends FirstMenu {
     public CreditCardsPage tabCreditCards() {
         $(By.xpath("//span[contains(text(), 'Кредитные карты')][@data-qa-file = 'SecondMenu']")).click();
@@ -42,7 +48,7 @@ public class SecondMenu extends FirstMenu {
     }
 
     public void openSecondTabByText(String tabText) {
-        $(By.xpath("//span[text() = '"+ tabText +"'][@data-qa-file = 'SecondMenu']")).click();
+        $(By.xpath("//span[text() = '" + tabText + "'][@data-qa-file = 'SecondMenu']")).click();
     }
 
 }

@@ -9,100 +9,45 @@ import static com.codeborne.selenide.Selenide.actions;
 import static org.openqa.selenium.By.xpath;
 import static org.testng.Assert.assertEquals;
 
+/**
+ * Структура страницы категории ЖКУ-Москва.
+ *
+ * @author n.khabaev
+ * @version 1.0
+ */
 public class PayZhkuMoskva extends ZhkuMoskvaPage {
     /**
-     * @param codePay - 10-значный код плательщика
-     * @return - эту же страницу
-     */
-    //TODO: сделать метод, динамически возвращающий элемент по тексту подсказки
-    public PayZhkuMoskva setCodePay(String codePay) {
-        $(xpath("//input[@name = 'provider-payerCode']")).setValue(codePay);
-        return this;
-    }
-
-    /**
-     *
-     * @param period - период платежа в формате ММ.ГГГГ
-     * @return - эту же страницу
-     */
-    public PayZhkuMoskva setPeriod(String period) {
-        $(xpath("//input[@name = 'provider-period']")).setValue(period);
-        return this;
-    }
-
-    /**
-     *
-     * @param sumInsurance - сумма страхования жилья - не может быть больше суммы платежа
-     * @return - эту же страницу
-     */
-    public PayZhkuMoskva setInsurance(String sumInsurance) {
-        $(xpath("//span[contains(text(), 'Сумма добровольного страхования жилья')]/../div/input")).setValue(sumInsurance);
-        return this;
-    }
-
-    /**
-     *
-     * @param sumPay - сумма платежа - не может быть меньше 10р, или меньше суммы страхования
-     * @return - эту же страницу
-     */
-    public PayZhkuMoskva setSumPay(String sumPay) {
-        $(xpath("//div[@class = 'ui-form__fieldset ui-form__fieldset_inline ui-form__row_amount']")).click();
-        $(xpath("//span[contains(text(), 'Сумма платежа')]/../div/input")).setValue(sumPay);
-        return this;
-    }
-
-    /**
-     * Возвращает текст ошибки, которая находится под блоком "Код плательщика за ЖКУ в Москве"
-     * @return - текст ошибки
-     */
-    public String getCodePayErrorText() {
-        return $(xpath("//label[@for='payerCode']/../../div[@data-qa-file='UIFormRowError']")).getText();
-    }
-
-    /**
-     * Возвращает текст ошибки, которая находится под блоком "Период"
-     * @return - текст ошибки
-     */
-    public String getPeriodErrorText() {
-        return $(xpath("//label[@for='period']/../../../div[@data-qa-file='UIFormRowError']")).getText();
-    }
-
-    /**
-     * Возвращает текст ошибки, которая находится под блоком "Сумма добровольного страхования"
-     * @return - текст ошибки
-     */
-    public String getInsuranceErrorText() {
-        return $(xpath("//span[contains(text(), 'Сумма добровольного страхования жилья')]/../../../div[@data-qa-file='UIFormRowError']")).getText();
-    }
-
-    /**
-     * Возвращает текст ошибки, которая находится под блоком "Сумма платежа"
-     * @return - текст ошибки
-     */
-    public String getSumPayErrorText() {
-        return $(xpath("//span[contains(text(), 'Сумма платежа')]/../../../div[@data-qa-file='UIFormRowError']")).getText();
-    }
-
-    /**
      * Нажатие на "Оплатить"
-     * @return - эту же страницу.
      */
-    //TODO: Нужно возвращать не эту же страницу, а следующую в рамках платежа. Для негативных проверок продуамть другой метод.
-    public PayZhkuMoskva clickPay() {
+    private void clickPay() {
         $(xpath("//button[@data-qa-file='UIButton']")).click();
-        return this;
     }
 
-    public PayZhkuMoskva setInputByHint(String hint, String value) {
-        SelenideElement input = $(new ByAll(xpath("//span[contains(text(),'" + hint + "')]/../../input"), xpath("//span[contains(text(),'" + hint + "')]//..//input")));
+    /**
+     * Метод, сетящий передаваемое значение в инпут по хинту инпута
+     *
+     * @param hint  хинт инпута на странице
+     * @param value значение, которое нужно засетить
+     * @return эту же страницу
+     */
+    public PayZhkuMoskva setInputByHint(final String hint, final String value) {
+        SelenideElement input = $(new ByAll(
+                xpath("//span[contains(text(),'" + hint + "')]/../../input"),
+                xpath("//span[contains(text(),'" + hint + "')]//..//input")));
         actions().click(input).perform();
         input.setValue(value);
         clickPay();
         return this;
     }
 
-    public String getErrorByHint(String hint)
-    {
+    /**
+     * Метод, возвращающий текст ошибки под переданным инпутом
+     * Если ошибки нет - вернется null
+     *
+     * @param hint хинт инпута
+     * @return текст ошибки
+     */
+    private String getErrorByHint(final String hint) {
         String errorMessage = null;
         SelenideElement containerErrorMessage = $(By.xpath(".//span[contains(text(), '" + hint + "')]//ancestor::div[@data-qa-file='FormFieldWrapper'][1]//div[@data-qa-file='UIFormRowError']"));
         if (containerErrorMessage.isDisplayed())
@@ -110,7 +55,13 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
         return errorMessage;
     }
 
-    public void assertTextErrorByHint(String hint, String textError) {
+    /**
+     * Проверим, совпадает ли ожидаемый текст ошибки с ошибкой под инпутом
+     *
+     * @param hint      хинт в инпуте, у которогу нужно найти текст ошибки
+     * @param textError ожидаемый текст ошибки
+     */
+    public void assertTextErrorByHint(final String hint, final String textError) {
         assertEquals(textError, getErrorByHint(hint));
     }
 }

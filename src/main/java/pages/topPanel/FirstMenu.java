@@ -1,12 +1,10 @@
 package pages.topPanel;
 
-import org.openqa.selenium.By;
-
-import static com.codeborne.selenide.Selenide.$;
-
+/**
+ * Структура страницы Главного меню.
+ *
+ * @author n.khabaev
+ * @version 1.0
+ */
 public class FirstMenu {
-    public void clickBank() {
-        $(By.xpath("//span[@data-qa-file='FirstMenu'][contains(text(),'Банк')]")).click();
-    }
-
 }
