@@ -22,9 +22,15 @@ import static java.util.Map.ofEntries;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 
+/**
+ * Класс тестового теста
+ */
 public class SingleTest {
-
-
+    /**
+     * Откроем тут браузер
+     * и страницу тинькоффа
+     * Откроем на весь экран
+     */
     @BeforeClass
     public void openStartPage() {
         ChromeDriverManager.getInstance().setup();
@@ -33,6 +39,11 @@ public class SingleTest {
         getWebDriver().manage().window().maximize();
     }
 
+    /**
+     * Тест проверяет переход по страницам
+     * возвращение на ту же страницу
+     * наличие или отсутствие нужной Платежной организации
+     */
     @Test
     public void test1() {
         FindByLocators findElement = new FindByLocators();
@@ -90,6 +101,13 @@ public class SingleTest {
                 "На странице г. Санкт-Петербург присутствует ЖКУ-Москва");
     }
 
+    /**
+     * Датапровайдер для генерации данных
+     *
+     * @return объект с мапами, в которых
+     * Первая мапа - хит инпута и значение инпута
+     * Вторая мапа - хит инпута и значение валидации под ним
+     */
     @DataProvider(name = "Validation")
     public static Object[][] validation() {
         return new Object[][]{
@@ -102,20 +120,26 @@ public class SingleTest {
                 {ofEntries(entry("Сумма платежа", "151001")),
                         ofEntries(entry("Сумма платежа", "Максимум — 15 000 \u20BD"))},
                 {ofEntries(entry("Сумма платежа", "15001"),
-                            entry("Сумма добровольного страхования жилья из квитанции за ЖКУ в Москве", "15555")),
+                        entry("Сумма добровольного страхования жилья из квитанции за ЖКУ в Москве", "15555")),
                         ofEntries(entry("Сумма добровольного страхования жилья из квитанции за ЖКУ в Москве", "Сумма добровольного страхования не может быть больше итоговой суммы."))},
                 {ofEntries(entry("Код плательщика за ЖКУ в Москве", "")),
                         ofEntries(entry("Код плательщика за ЖКУ в Москве", "Поле обязательное"))},
                 {ofEntries(entry("За какой период оплачиваете коммунальные услуги", "")),
                         ofEntries(entry("За какой период оплачиваете коммунальные услуги", "Поле обязательное"))},
                 {ofEntries(entry("Сумма платежа", "")),
-                        ofEntries(entry("Сумма платежа", "Поле обязательное"))},};
+                        ofEntries(entry("Сумма платежа", "Поле обязательное"))}};
     }
+
+    /**
+     * Ьесь га проверку валидации на странице Платежей
+     *
+     * @param inputs мапа значений инпутов в структуре - <хит инпута; значение инпута>
+     * @param errors мапа валидации инпутов в структуре - <хит инпута; ошибка под инпутом>
+     */
     @Test(dataProvider = "Validation")
-    public void testValidation(Map<String, String> inputs, Map<String, String> errors) {
+    public void testValidation(final Map<String, String> inputs, final Map<String, String> errors) {
         PayZhkuMoskva payZhkuMoskva = new PayZhkuMoskva();
         open("https://www.tinkoff.ru/zhku-moskva/oplata/?tab=pay");
-
         inputs.forEach(payZhkuMoskva::setInputByHint);
         errors.forEach(payZhkuMoskva::assertTextErrorByHint);
     }

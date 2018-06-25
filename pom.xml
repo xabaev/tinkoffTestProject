@@ -44,6 +44,14 @@
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>true</failsOnError>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <checkstyleRules>
+                        <module name="LineLength">
+                            <property
+                                    name="max"
+                                    value="135" />
+                        </module>
+                    </checkstyleRules>
+
                 </configuration>
                 <executions>
                     <execution>

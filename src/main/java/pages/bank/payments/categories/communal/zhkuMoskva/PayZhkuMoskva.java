@@ -50,8 +50,9 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
     private String getErrorByHint(final String hint) {
         String errorMessage = null;
         SelenideElement containerErrorMessage = $(By.xpath(".//span[contains(text(), '" + hint + "')]//ancestor::div[@data-qa-file='FormFieldWrapper'][1]//div[@data-qa-file='UIFormRowError']"));
-        if (containerErrorMessage.isDisplayed())
+        if (containerErrorMessage.isDisplayed()) {
             errorMessage = containerErrorMessage.getText();
+        }
         return errorMessage;
     }
 
