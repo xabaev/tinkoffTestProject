@@ -4,6 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.pagefactory.ByAll;
 
+import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.actions;
 import static org.openqa.selenium.By.xpath;
@@ -48,12 +49,13 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
      * @return текст ошибки
      */
     private String getErrorByHint(final String hint) {
-        String errorMessage = null;
         SelenideElement containerErrorMessage = $(By.xpath(".//span[contains(text(), '" + hint + "')]//ancestor::div[@data-qa-file='FormFieldWrapper'][1]//div[@data-qa-file='UIFormRowError']"));
-        if (containerErrorMessage.isDisplayed()) {
-            errorMessage = containerErrorMessage.getText();
+        try {
+            containerErrorMessage.waitUntil(appear, 3000); //Cannot use e.exists() as I need some waiting?
+            return containerErrorMessage.getText();
+        } catch (Throwable ignore) {
+            return null;
         }
-        return errorMessage;
     }
 
     /**
