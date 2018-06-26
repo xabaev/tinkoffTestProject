@@ -19,7 +19,7 @@ public class RegionsPaymentPage extends SecondMenu {
      * Для каждой категории платежей должен быть свой RegionsPaymentPage.
      */
     //TODO добавить ловлю исключения.
-    public CommunalPaymentPage selectRegionFromTable(String region) {
+    public CommunalPaymentPage selectRegionFromTable(final String region) {
         sleep(300);
         $(By.xpath("//div[@data-qa-file = 'UIRegions']//*[text()='" + region + "'][@data-qa-file='UILink']")).click();
         return new CommunalPaymentPage();

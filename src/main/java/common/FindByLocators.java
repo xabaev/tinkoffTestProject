@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Selenide.$;
 
 /**
- * Методы поиска по локаторам
+ * Методы поиска по локаторам.
  *
  * @author n.khabaev
  * @version 1.0

@@ -15,7 +15,7 @@ import static com.codeborne.selenide.Selenide.sleep;
  */
 public class CommunalPaymentPage extends SecondMenu {
     /**
-     * Получаем регион, в котором открылась страница
+     * Получаем регион, в котором открылась страница.
      *
      * @return текст региона
      */

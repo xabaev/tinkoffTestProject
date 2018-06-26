@@ -21,8 +21,8 @@ public class PaymentsPage extends SecondMenu {
     }
 
     /**
-     * Откроем переданную категорию
-     * Если категории нет - выберем ее из "Все категории"
+     * Откроем переданную категорию.
+     * Если категории нет - выберем ее из "Все категории".
      * @param categoryName имя категории, которое нужно открыть
      */
     public void clickPaymentCategory(final String categoryName) {

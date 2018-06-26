@@ -18,15 +18,14 @@ import static org.testng.Assert.assertEquals;
  */
 public class PayZhkuMoskva extends ZhkuMoskvaPage {
     /**
-     * Нажатие на "Оплатить"
+     * Нажатие на "Оплатить".
      */
     private void clickPay() {
         $(xpath("//button[@data-qa-file='UIButton']")).click();
     }
 
     /**
-     * Метод, сетящий передаваемое значение в инпут по хинту инпута
-     *
+     * Метод, сетящий передаваемое значение в инпут по хинту инпута.
      * @param hint  хинт инпута на странице
      * @param value значение, которое нужно засетить
      * @return эту же страницу
@@ -42,16 +41,17 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
     }
 
     /**
-     * Метод, возвращающий текст ошибки под переданным инпутом
-     * Если ошибки нет - вернется null
+     * Метод, возвращающий текст ошибки под переданным инпутом.
+     * Если ошибки нет - вернется null.
      *
      * @param hint хинт инпута
      * @return текст ошибки
      */
     private String getErrorByHint(final String hint) {
-        SelenideElement containerErrorMessage = $(By.xpath(".//span[contains(text(), '" + hint + "')]//ancestor::div[@data-qa-file='FormFieldWrapper'][1]//div[@data-qa-file='UIFormRowError']"));
+        SelenideElement containerErrorMessage = $(By.xpath(".//span[contains(text(), '" + hint + "')]"
+                + "//ancestor::div[@data-qa-file='FormFieldWrapper'][1]//div[@data-qa-file='UIFormRowError']"));
         try {
-            containerErrorMessage.waitUntil(appear, 3000); //Cannot use e.exists() as I need some waiting?
+            containerErrorMessage.waitUntil(appear, 3000);
             return containerErrorMessage.getText();
         } catch (Throwable ignore) {
             return null;
@@ -59,7 +59,7 @@ public class PayZhkuMoskva extends ZhkuMoskvaPage {
     }
 
     /**
-     * Проверим, совпадает ли ожидаемый текст ошибки с ошибкой под инпутом
+     * Проверим, совпадает ли ожидаемый текст ошибки с ошибкой под инпутом.
      *
      * @param hint      хинт в инпуте, у которогу нужно найти текст ошибки
      * @param textError ожидаемый текст ошибки
